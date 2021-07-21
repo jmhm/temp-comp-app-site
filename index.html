@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Walden University - Student Companion App</title>
+
+    <base href=".">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style type="text/css">
+        .imo-unstyled {
+            border: none;
+            padding: 0;
+            width: auto;
+            overflow: visible;
+            background: transparent;
+            color: inherit;
+            font: inherit;
+            line-height: normal;
+            cursor: pointer;
+            -webkit-font-smoothing: inherit;
+            -moz-osx-font-smoothing: inherit;
+            -webkit-appearance: none;
+        }
+        
+        .imo-unstyled::-moz-focus-inner {
+            border: 0;
+            padding: 0;
+        }
+        
+        .imo-trigger {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            margin: 10px;
+            border-radius: 5px;
+            background-color: navajowhite;
+            height: 50px;
+            width: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-family: sans-serif;
+            z-index: 10500;
+        }
+        
+        .imo-popup {
+            box-sizing: border-box;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            z-index: 10000;
+            background-color: black;
+            color: white;
+            font-family: sans-serif;
+            padding: 24px;
+        }
+        
+        .imo-popup a:visited,
+        imo-popup a {
+            color: white;
+        }
+        
+        .imo-popup .imo-module-dialog {
+            left: calc(50% - 200px);
+        }
+        
+        .imo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .imo-list {
+            margin-left: 16px;
+        }
+        
+        .imo-list>*:not(:last-child) {
+            margin-bottom: 8px;
+        }
+        
+        .imo-list-container {
+            font-family: sans-serif;
+        }
+        
+        .imo-module-dialog {
+            position: fixed;
+            z-index: 30000000;
+            top: 30%;
+            max-width: 600px;
+            margin: 0 auto;
+            border: 4px solid navajowhite;
+        }
+        
+        .imo-module-dialog input {
+            width: 100%;
+        }
+        
+        .imo-module-dialog table {
+            margin-bottom: 16px;
+        }
+        
+        .imo-module-dialog input {
+            font-size: 16px;
+        }
+        
+        .imo-module-dialog table td:first-child {
+            text-align: right;
+            padding-right: 16px;
+            word-break: keep-all;
+        }
+        
+        .imo-module-dialog table td {
+            word-break: break-all;
+        }
+        
+        .imo-module-dialog.imo-overridden {
+            border: 4px solid salmon;
+        }
+        
+        .imo-list-container button,
+        .imo-modal-container button {
+            padding: 6px 16px;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        button.imo-default {
+            background-color: navajowhite;
+        }
+        
+        button.imo-overridden,
+        .imo-trigger.imo-overridden {
+            background-color: salmon;
+            font-weight: bold;
+        }
+        
+        .imo-add-new {
+            margin-top: 16px;
+            margin-left: 16px;
+        }
+        
+        .imo-clear-input {
+            position: absolute;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .imo-modal-container {
+            font-family: sans-serif;
+        }
+        
+        .imo-modal {
+            background-color: rgba(61, 70, 77, 0.6);
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: 20000000;
+        }
+    </style>
+    
+    <link rel="icon" type="image/x-icon" href="walden.ico">
+    
+    <style>
+        .container[_ngcontent-nis-c2] {
+            font-family: 'Gill Sans', 'Gill Sans MT', sans-serif;
+            font-size: 18px;
+            font-weight: 400;
+            font-style: normal;
+            text-align: left;
+            letter-spacing: 0;
+            line-height: 1.6;
+            left: 25px;
+            width: 70%;
+            top: 152.68px;
+            opacity: 1;
+            z-index: 0;
+            margin-left: auto;
+            margin-right: auto
+        }
+
+       a {
+           color: #00687f;
+       } 
+
+        .color_TextEmph[_ngcontent-nis-c2] {
+            color: #00687f
+        }
+        
+        .text_body[_ngcontent-nis-c2] {
+            font-size: 20px
+        }
+        
+        .text_body1[_ngcontent-nis-c2] {
+            font-size: 30px
+        }
+        
+        .logo-walden {
+            width: 60%;
+            max-width: 300px;
+        }
+        
+        header.interior-hero.has-featured .hero-img {
+            padding: 0 8rem 0 0;
+        }
+        
+        header.interior-hero.has-featured .hero-img {
+            /*padding: 0 12rem 0 0;*/
+            padding: 0;
+        }
+        
+        header.interior-hero .hero-img {
+            z-index: 0;
+        }
+        
+        header.interior-hero .hero-img {
+            width: calc(50% + 630px);
+            max-height: 45rem;
+        }
+
+        .my-hero-image {
+            background-image: url("images/hero-image-GettyImages-1248900587.jpg");
+            width: 100%;
+            
+            background-size: 100% auto;
+            background-position: -45% 40%;
+            height: 500px;
+            max-height: 500px;
+        }
+        header.interior-hero .hero-img {
+            width: 100%;
+            max-width: none;
+            position: relative;
+            max-height: 500px;
+            z-index: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        @media only screen and (max-width: 787px) {
+            .my-hero-image {
+                background-position: -45% 0%;
+                height: 300px;
+                max-height: 300px;
+            }
+
+            header.interior-hero .hero-img {
+            max-height: 300px;
+            
+            }
+        }
+
+   
+
+        header.interior-hero .hero-img img {
+            width: 100%;
+            max-width: none;
+            display: block;
+        }
+        
+        header.interior-hero {
+            position: relative;
+            width: 100%;
+            padding: 0;
+            margin: 0 0 1.4rem 0;
+            background: transparent;
+            color: #2d2c2b;
+        }
+        
+        header.interior-hero .hero-cnt {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translateY(-100%);
+            color: #fff;
+            padding-bottom: 1rem;
+        }
+        
+        header.interior-hero .hero-img:before {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            content: "";
+            background: linear-gradient( 0deg, #212322 20%, rgba(23, 25, 24, 0) 60%);
+            opacity: .7;
+            z-index: 10;
+        }
+
+        @media only screen and (max-width: 787px) {
+            header.interior-hero .hero-img:before {
+                background: linear-gradient( 0deg, #212322 30%, rgba(23, 25, 24, 0) 90%);
+            }
+        }
+        
+        header.interior-hero .main-cnt {
+            width: 90%;
+        }
+        
+        main>header.interior-hero .main-cnt {
+            max-width: 1260px;
+            margin: auto;
+            width: 100%;
+            position: relative;
+        }
+        
+        header.has-featured .hero-cnt {
+            width: 100%;
+            padding-right: 3rem;
+        }
+        
+        header.interior-hero .hero-img picture {
+            display: block;
+            position: relative;
+        }
+        
+
+        
+        header.interior-hero .main-cnt {
+            max-width: 70%;
+            margin: auto;
+            width: 100%;
+            position: relative;
+        }
+        
+        h1 {
+            letter-spacing: .02em;
+            font-weight: 500;
+            font-family: noto-serif, serif;
+            font-size: 3.2rem;
+            line-height: 1.238;
+        }
+        
+        h2 {
+            letter-spacing: .02em;
+            font-weight: 500;
+            font-family: noto-serif, serif;
+            font-size: 2.2rem;
+            line-height: 1.238;
+            color: #00687f;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        System.import('single-spa').then(function(singleSpa) {
+            singleSpa.registerApplication(
+                'staticpage-microapp',
+                function() {
+                    return System.import('staticpage-microapp');
+                },
+                function(location) {
+                    return true;
+                }
+            )
+            singleSpa.start();
+        })
+    </script>
+    <staticpage-microapp-root _nghost-nis-c2="" ng-version="11.1.2">
+
+        <header class="interior-hero has-featured">
+            <div class="hero-img">
+                <picture>
+                    <!-- <img src="images/hero-image-GettyImages-1248900587.jpg" alt=""> -->
+                    <div class="my-hero-image">
+                    </div>
+                </picture>
+            </div>
+            <div class="main-cnt">
+                <div class="hero-cnt">
+                    <div class="hero-card">
+                        <h1>Walden's Student Companion App is now available</h1>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        <!-- <div _ngcontent-nis-c2="" class="row"><img _ngcontent-nis-c2="" src="images/hero-image-GettyImages-1248900587.jpg" style="margin: 0 auto; display: block; width: 90%; height: auto; pointer-events: auto;">
+            <h1 _ngcontent-nis-c2="" style="text-align:center"><span _ngcontent-nis-c2="" class="color_TextEmph" style="font-size: 50px; margin: 0px auto;"><b _ngcontent-nis-c2=""> Arriving March 30th, the new myWalden
+            home page.</b></span></h1>
+        </div> -->
+        <div _ngcontent-nis-c2="" class="container">
+            <div _ngcontent-nis-c2="" style="margin-top: 60px;">
+                <p _ngcontent-nis-c2="">
+                    We are excited to release our new mobile app for all Walden students. The Walden University Student Companion App gives current students the opportunity to connect to important
+                    information around student life at Walden from your mobile device. </p>
+
+                    <p>
+                        <span><b _ngcontent-nis-c2="">Note:</b></span> :  The Companion App offers easy access to information, however   it does not replace or duplicate  the classroom experience. 
+                        Assignments and coursework can only be completed on your desktop at this time. 
+                        
+                     </p>
+                     <br /><br />
+                <p style="">Download it now on your device by clicking on the appropriate following links to the application's store supported by your mobile device:</p>
+                <div style="text-align: center;">
+                    <div style="display: inline;"><a href="#" style="border:0"><image style="width:200px" src="./images/download-on-the-app-store.png" /></a></div>
+                    <div style="display: inline;margin-left:.4rem"><a href="#" style="border:0"><image style="width:200px" src="./images/google-play-badge.png" /></a></div>
+                </div>
+                Or you may scan this QR code with your mobile device:
+                <div style="text-align: center;">
+                    <image style="width: 150px;" src="./images/onlink_to_47gpsy_small.png" />
+                </div>
+                
+                <div style="display: inline;"></div>
+                <p style="font-size:20px">Enjoy the new Companion App!</p>
+                <h2 style="padding-bottom: 12px; max-height: 25px;">Student Support</h2>
+                <p _ngcontent-nis-c2=""><strong><a href="tour/index.html">From your computer, you can to take a look at the interactive tour of the app here.</strong></a></p>
+                <p _ngcontent-nis-c2="">For further help, contact the Customer Care Team by visiting the help icon on your myWalden student portal and select live chat. Or call 1-800-925-3368.</p>
+            </div>
+            <div style="text-align: center; margin: 3.2rem auto"><img src="images/logo-walden.svg" class="logo-walden" alt="Walden Logo"></div>
+        </div>
+    </staticpage-microapp-root>
+    
+</body>
+
+</html>
